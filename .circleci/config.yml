@@ -33,7 +33,8 @@ jobs:
 
 parameters:
   environment:
-    type: string
+    type: enum
+    enum: [prod,staging]
     default: staging
 
   manual:
