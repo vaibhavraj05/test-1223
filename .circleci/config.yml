@@ -49,6 +49,7 @@ workflows:
   #     - say-hello
 
   build: 
+    when: << pipeline.parameters.manual >>
     jobs:
       - build
             # tags:
