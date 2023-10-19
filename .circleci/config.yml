@@ -101,8 +101,8 @@ workflows:
   mobile-build-ios: 
     when: 
       and: 
-          - equal: [ true, << pipeline.git.ios >> ]
-          - equal: [ true, << pipeline.git.manual >> ]
+          - equal: [ true, << pipeline.parameters.ios >> ]
+          - equal: [ true, << pipeline.parameters.manual >> ]
     jobs:
       - ios:
           filters:
@@ -117,8 +117,8 @@ workflows:
   mobile-build-android: 
     when: 
       and: 
-          - equal: [ true, << pipeline.git.android >> ]
-          - equal: [ true, << pipeline.git.manual >> ]
+          - equal: [ true, << pipeline.parameters.android >> ]
+          - equal: [ true, << pipeline.parameters.manual >> ]
     jobs:
       - android:
           filters:
