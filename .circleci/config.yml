@@ -28,6 +28,7 @@ jobs:
       # - checkout
       - run: echo << pipeline.parameters.environment >>
       - run: echo << pipeline.parameters.manual >>
+      - run: echo << pipeline.parameters.clients >>
 
 
 
