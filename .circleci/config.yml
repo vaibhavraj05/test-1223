@@ -31,6 +31,16 @@ jobs:
       - run: echo << pipeline.parameters.clients >>
       - run: echo << pipeline.parameters.jenkins >>
 
+      - run:
+          name: running fastlane 
+          command: |
+              if [ << pipeline.parameters.jenkins >> = true ]; then
+                echo "Yes jenkins"
+              else
+                echo "No jenkins"
+              fi
+              
+
 
 
 parameters:
