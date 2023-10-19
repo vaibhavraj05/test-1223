@@ -35,7 +35,7 @@ jobs:
           name: running fastlane 
           command: |
               if [ << pipeline.parameters.jenkins >> = true ]; then
-                echo "Yes jenkins"
+                sh jenkins.sh << pipeline.parameters.stage >> << pipeline.parameters.clients >>
               else
                 echo "No jenkins"
               fi
@@ -60,6 +60,10 @@ parameters:
   jenkins:
     type: boolean
     default: false
+
+  stage:
+    type: string
+    default: no
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
