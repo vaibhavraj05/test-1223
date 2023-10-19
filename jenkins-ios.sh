@@ -4,8 +4,7 @@ set -e
 
 
 # Fetching clients details
-clients=$2
-bold=$(tput bold)  
+clients=$2  
 STAGE=$1
 
 
