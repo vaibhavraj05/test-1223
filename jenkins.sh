@@ -11,7 +11,9 @@ STAGE=$1
 
 IFS=','		# comma is set as delimiter
 # Reading the split string into array
-read -ra arr <<< "$clients"
+read -ra arr <<EOF
+$clients
+EOF
 
 # Print each value of the array by using the loop
 for val in "${arr[@]}";
