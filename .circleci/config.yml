@@ -35,7 +35,7 @@ jobs:
           name: running fastlane 
           command: |
               if [ << pipeline.parameters.jenkins >> = true ]; then
-                /bin/bash jenkins.sh << pipeline.parameters.stage >> << pipeline.parameters.clients >>
+                ./jenkins.sh << pipeline.parameters.stage >> << pipeline.parameters.clients >>
               else
                 echo "No jenkins"
               fi
