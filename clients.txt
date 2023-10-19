@@ -1,0 +1,16 @@
+yocharge,com.yocharge,YoCharge
+end
+alchemy,com.charge.alchemy,Alchemy Charge
+helios,com.heliosevc,Helios
+nihaan,com.energy.nihaan,Nihaan Energy
+unowecoenergy,com.unowecoenergy,Unow Eco-Energy
+electronity,com.electronity,ELECTRONITY
+charzup,com.charzup,CharzUp
+voltran,com.yocharge.voltran,Voltran
+lyev,com.energy.lyev,LyEV Green
+netzero,com.pacific.netzero,Net Zero Pacific
+focalcharge,com.yocharge.focalcharge,Focal Charge
+yocharge,com.yocharge,YoCharge
+nrg,com.nrgcharge,NRG Charge
+chargers,com.chargers,Chargers
+vsd,com.vsdautomation,VSD Charge
