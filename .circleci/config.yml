@@ -33,42 +33,98 @@ jobs:
               else
                 echo "No jenkins"
               fi
-              
 
 
+  ios:
+    macos:
+      xcode: 14.2
+    steps:
+      - run: echo "1000"
+      - checkout
+      - run: echo << pipeline.parameters.environment >>
+      - run: echo << pipeline.parameters.manual >>
+      - run: echo << pipeline.parameters.clients >>
+      - run: echo << pipeline.parameters.jenkins >>
 
+      - run:
+          name: running fastlane 
+          command: |
+              if [ << pipeline.parameters.jenkins >> = true ]; then
+                /bin/bash jenkins-ios.sh << pipeline.parameters.stage >> << pipeline.parameters.clients >>
+              else
+                echo "No jenkins"
+              fi
+
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 parameters:
   environment:
+    description: Selecting the environment for the build
     type: enum
     enum: [prod,staging]
     default: prod
 
   manual:
+    description: Build type, if someone wants to build manually
     type: boolean
     default: false
 
   clients:
+    description: If build trigges from jenkins then clients required 
     type: string
     default: None
 
   jenkins:
+    description: If jenkins is true then if will trigger from jenkins script
     type: boolean
     default: false
 
   stage:
+    description: If branch is stage/new then it will trigger the stage build
     type: string
     default: "no"
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  # say-hello-workflow:
-  #   jobs:
-  #     - say-hello
+  ios:
+    description: If ios is true then it will trigger the ios build
+    type: boolean
+    default: false
+  
+  android:
+    description: If android is true then it will trigger the android build
+    type: boolean
+    default: false
 
-  build: 
-    when: << pipeline.parameters.manual >>
+
+
+workflows:
+  mobile-build-ios: 
+    when: 
+      and: 
+          - equal: [ true, << pipeline.git.ios >> ]
+          - equal: [ true, << pipeline.git.manual >> ]
     jobs:
-      - android
+      - ios:
+          filters:
+            branches:
+              only:
+                - stage/new
+                - master
+            # tags:
+            #   only: /^release-.*/
+
+
+  mobile-build-android: 
+    when: 
+      and: 
+          - equal: [ true, << pipeline.git.android >> ]
+          - equal: [ true, << pipeline.git.manual >> ]
+    jobs:
+      - android:
+          filters:
+            branches:
+              only:
+                - stage/new
+                - master
             # tags:
             #   only: /^release-.*/
