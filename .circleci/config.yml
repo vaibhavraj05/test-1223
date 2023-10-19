@@ -84,16 +84,13 @@ parameters:
     description: If branch is stage/new then it will trigger the stage build
     type: string
     default: "no"
-
-  ios:
-    description: If ios is true then it will trigger the ios build
-    type: boolean
-    default: false
   
-  android:
-    description: If android is true then it will trigger the android build
-    type: boolean
-    default: false
+  device:
+    description: based on device it will trigger build
+    type: enum
+    enum: [IOS,ANDROID]
+    default: ANDROID
+
 
 
 
@@ -101,7 +98,7 @@ workflows:
   mobile-build-ios: 
     when: 
       and: 
-          - equal: [ true, << pipeline.parameters.ios >> ]
+          - equal: [ IOS, << pipeline.parameters.device >> ]
           - equal: [ true, << pipeline.parameters.manual >> ]
     jobs:
       - ios:
@@ -117,7 +114,7 @@ workflows:
   mobile-build-android: 
     when: 
       and: 
-          - equal: [ true, << pipeline.parameters.android >> ]
+          - equal: [ ANDROID, << pipeline.parameters.device >> ]
           - equal: [ true, << pipeline.parameters.manual >> ]
     jobs:
       - android:
