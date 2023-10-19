@@ -1,27 +1,21 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
+
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub, or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-            name: "Say hello"
-            command: "echo Hello, World!"
+orbs:
+  android: circleci/android@2.2.0
+  node: circleci/node@5.1.0
+  ruby: circleci/ruby@2.0.0
+  aws-cli: circleci/aws-cli@3.1.5
 
-# ****** Test Setup *****
-  build: # name of your job
-    machine: # executor type
-      image: ubuntu-2004:202010-01
+
+jobs:
+
+######### ------------------------------------------> Android BUILD <------------------------------------------ #########    
+  android:
+    executor:
+      name: android/android-machine
+      tag: 2021.12.1
+      resource-class: large
       
     steps:
       - run: echo "1000"
@@ -75,6 +69,6 @@ workflows:
   build: 
     when: << pipeline.parameters.manual >>
     jobs:
-      - build
+      - android
             # tags:
             #   only: /^release-.*/
